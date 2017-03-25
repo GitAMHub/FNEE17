@@ -1,7 +1,8 @@
-fn <-read.csv2("FNEE2017.csv")
-
 library(ggplot2)
 library(scales)
+library(readxl)
+
+fn<-read_csv("FNEE2017.csv")
 
 p<-qplot(Obli_ahoGWh,IEEoa_17_ajus16_EUR, data=fn, colour= Sujeto, xlab = ("Obligación de ahorro (GWh)"), ylab="Importe económico
          equivalente a la obligación de ahorro 2017
