@@ -1,0 +1,99 @@
+---
+title: "3190 Orden ETU/258/2017, de 24 de marzo, por la que se establecen las
+obligaciones de aportación al Fondo Nacional de Eficiencia Energética en el
+año 2017."
+output: html_notebook
+---
+
+[Orden ETU/258/2017](http://www.boe.es/boe/dias/2017/03/25/pdfs/BOE-A-2017-3190.pdf)
+
+La Directiva 2012/27/UE del Parlamento Europeo y del Consejo, de 25 de octubre
+de 2012, relativa a la eficiencia energética (en adelante la Directiva), por la que se modifican
+
+las Directivas 2009/125/CE y 2010/30/UE, y por la que se derogan las Directivas 2004/8/CE
+y 2006/32/CE, crea un marco común para fomentar la eficiencia energética dentro de la
+Unión y establece acciones concretas a fin de alcanzar un notable ahorro de energía
+acumulado en el periodo 2014 - 2020.
+
+La Directiva establece en su artículo 7 la obligación de justificar, por parte de cada
+Estado miembro, una cantidad de ahorro de energía acumulado para el periodo 20142020.
+En cumplimiento de esta obligación, España ha comunicado a la Comisión Europea un
+objetivo de 15.320 ktep, objetivo que se ha incrementado hasta los 15.979 ktep según la
+última revisión de la metodología realizada por la Comisión Europea
+
+```{r}
+library(ggplot2)
+library(scales)
+library(readxl)
+fn<-read.csv("FNEE2017.csv")
+fn$Sujeto<-factor(fn$Sujeto)
+```
+
+
+```{r}
+p<-qplot(Obli_ahoGWh,GWh_15, data=fn, colour= Sujeto, ylab = ("Obligación de ahorro (GWh)"), xlab="Importe económico
+         equivalente a la obligación de ahorro 2017
+         con ajustes 2016 (euros)")
+p + facet_grid(. ~ Sujeto)
+# p + scale_x_discrete(labels = NULL )+ scale_y_discrete(labels = NULL)
+```
+
+```{r}
+p <- ggplot(fn, aes(GWh_15, Obli_ahoGWh)) + geom_point()
+p +  labs(title = "Orden ETU/258/2017 Fondo Nacional de Eficiencia Energética - 2017")
+p+ xlab("Obligación de ahorro (GWh)") + ylab("Importe económico equivalente -  2017 + ajuste 2016 (euros)") + facet_grid(. ~ Sujeto,margins=TRUE)
+```
+
+```{r}
+p<-qplot(Ajus_16,IEEoa_17_EUR, data=fn, colour= Sujeto, ylab = ("Importe económico equivalente obligación ahorro 2017 sin ajustes (€)"), xlab="Ajustes 2016 (€)")
+p
+```
+
+
+```{r}
+p<-qplot(Ajus_16,data=fn, colour= Sujeto, xlab="Ajustes 2016 (€)", bins=30)
+p
+```
+
+```{r}
+p<-qplot(Obli_ahoGWh,data=fn, colour= Sujeto, xlab="Obligación de ahorro (GWh)", bins=30)
+p
+```
+
+```{r}
+p<-qplot(Obli_ahoGWh,data=fn, colour= Sujeto, xlab="Obligación de ahorro (GWh)", bins=30)
+p +  facet_grid(. ~ Sujeto,margins=TRUE)
+```
+
+
+```{r}
+p<-qplot(GWh_15,data=fn, colour= Sujeto, xlab="Ventas 2015 (GWh)", bins=30)
+p +  facet_grid(. ~ Sujeto,margins=TRUE)
+```
+
+```{r}
+ggplot(fn,
+       aes(x = factor("Sujeto"), fill = Sujeto) ) +
+        geom_bar() +
+        coord_polar(theta = "y") +
+        scale_x_discrete("")
+```
+
+```{r}
+fn$GWh_15<-factor(fn$GWh_15)
+```
+
+
+
+
+```{r}
+ggplot(fn,
+       aes(x = factor("Sujeto"), fill = Sujeto) ) +
+        geom_bar() +
+        coord_polar(theta = "y") +
+        scale_x_discrete("")
+```
+
+
+[Copyleft](https://es.wikipedia.org/wiki/Copyleft) Antonio Maudes
+
